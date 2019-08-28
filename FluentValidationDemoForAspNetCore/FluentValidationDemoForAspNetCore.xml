@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FluentValidationDemoForAspNetCore</name>
+    </assembly>
+    <members>
+        <member name="M:FluentValidationDemoForAspNetCore.Controllers.SampleApiController.AddPersion(FluentValidationDemoForAspNetCore.Input.AddPersonInput)">
+            <summary>
+            add a person
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:FluentValidationDemoForAspNetCore.Controllers.SampleApiController.AddStudent(FluentValidationDemoForAspNetCore.Input.AddStudentInput)">
+            <summary>
+            add a student
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:FluentValidationDemoForAspNetCore.Input.AddPersonInput">
+            <summary>
+            添加人入参
+            </summary>
+        </member>
+        <member name="T:FluentValidationDemoForAspNetCore.Input.AddStudentInput">
+            <summary>
+            添加学生入参
+            </summary>
+        </member>
+        <member name="P:FluentValidationDemoForAspNetCore.Input.AddStudentInput.School">
+            <summary>
+            学校
+            </summary>
+        </member>
+        <member name="P:FluentValidationDemoForAspNetCore.Input.AddStudentInput.Class">
+            <summary>
+            班级
+            </summary>
+        </member>
+        <member name="P:FluentValidationDemoForAspNetCore.Input.AddStudentInput.Courses">
+            <summary>
+            课程
+            </summary>
+        </member>
+    </members>
+</doc>
