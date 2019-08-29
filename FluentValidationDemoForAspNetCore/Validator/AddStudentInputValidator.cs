@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using FluentValidationDemoForAspNetCore.Input;
 using System;
 using System.Collections.Generic;
@@ -20,17 +21,17 @@ namespace FluentValidationDemoForAspNetCore.Validator
             RuleFor(x => x.Class.ClassName).NotNull();
 
             //collection
-            RuleForEach(x => x.Courses).NotNull()
-                .OnFailure(x => {
-                    //call back
-                    //log 
-
-                });
-
+            RuleForEach(x => x.Courses).Must(x => !string.IsNullOrEmpty(x.Name)).WithMessage("课程名称不能为空");                
 
             //async validation
             RuleFor(x => x.School).MustAsync(async (school, cancellation) => {
                 return await IsSchoolExist(school);
+            });
+            
+            //custom rule
+            RuleFor(x => x.Courses).Custom((x, context) => {
+                if (x?.Count < 10)
+                    context.AddFailure("至少选10门课程");
             });
 
         }
@@ -39,6 +40,19 @@ namespace FluentValidationDemoForAspNetCore.Validator
         {
             await Task.Delay(1000);
             return !string.IsNullOrEmpty(schoolName);
+        }
+        /// <summary>
+        /// PreValidate
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        protected override bool PreValidate(ValidationContext<AddStudentInput> context, ValidationResult result)
+        {
+            if (context.InstanceToValidate == null)
+                return false;
+            else 
+                return true;
         }
     }
 }

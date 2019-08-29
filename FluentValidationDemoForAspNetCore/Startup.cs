@@ -28,7 +28,10 @@ namespace FluentValidationDemoForAspNetCore
 
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
+            .AddFluentValidation(fv => {
+                fv.RegisterValidatorsFromAssemblyContaining<Startup>();
+                fv.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+            });
             ;
             services.AddSingleton(typeof(IPersonService), typeof(PersonService));
             //services.AddSingleton(typeof(IValidator<AddPersonInput>), typeof(AddPersonInputValidator));

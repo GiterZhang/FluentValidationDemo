@@ -1,5 +1,7 @@
-﻿using FluentValidationDemoForAspNetCore.Input;
+﻿using FluentValidation.AspNetCore;
+using FluentValidationDemoForAspNetCore.Input;
 using FluentValidationDemoForAspNetCore.Interface;
+using FluentValidationDemoForAspNetCore.Validator.ValidatorInterceptor;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FluentValidationDemoForAspNetCore.Controllers
@@ -25,7 +27,7 @@ namespace FluentValidationDemoForAspNetCore.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost, Route("api/student")]
-        public int AddStudent(AddStudentInput input) => _personService.AddStudent(input);
+        [HttpPost, Route("api/student"), ]
+        public int AddStudent([CustomizeValidator(Interceptor = typeof(MyValidatorInterceptor))]AddStudentInput input) => _personService.AddStudent(input);
     }
 }

@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using FluentValidationDemoForAspNetCore.Input;
 using System;
+using System.IO;
+using System.Text;
 
 namespace FluentValidationDemoForAspNetCore.Validator
 {
@@ -21,7 +23,16 @@ namespace FluentValidationDemoForAspNetCore.Validator
                 .WithMessage("成人必须大于18岁");
             RuleFor(x => x.IDCard).Must(x => x.StartsWith("310"))
                 .When(x => "上海".Equals(x.Province?.Trim(), StringComparison.CurrentCultureIgnoreCase))
-                .WithMessage("上海人身份证必须以310开头！");
+                .WithMessage("上海人身份证必须以310开头！")
+                .OnFailure((x, context, errorMessage)=> {
+                    //call back
+                    using (var file = File.Open("error_log.txt", FileMode.OpenOrCreate))
+                    {
+                        var bytes = Encoding.UTF8.GetBytes(errorMessage + "\r\n");
+                        file.Seek(file.Length, SeekOrigin.Begin);
+                        file.Write(bytes, 0, bytes.Length);
+                    }    
+                });
 
         }
     }

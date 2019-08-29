@@ -7,5 +7,6 @@ namespace FluentValidationDemoForAspNetCore.Input
 {
     public class Course
     {
+        public string Name { get; set; }
     }
 }
